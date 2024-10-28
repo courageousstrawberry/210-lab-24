@@ -1,24 +1,24 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
+#include <set>
 #include <limits>
 #include "Goat.h"
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
-int select_goat(list<Goat> trip);
-void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string [], string []);
-void display_trip(list<Goat> trip);
+int select_goat(set<Goat> trip);
+void delete_goat(set<Goat> &trip);
+void add_goat(set<Goat> &trip, string [], string []);
+void display_trip(set<Goat> trip);
 int main_menu();
 
 int main() {
     srand(time(0));
     bool again;
     int user = 0;
-    list<Goat> goats;
+    set<Goat> goats;
 
     // read & populate arrays for names and colors
     ifstream fin("names.txt");
@@ -75,7 +75,7 @@ int main_menu() {
     return choice;
 }
 
-void add_goat(list<Goat> &trip, string names[], string colors[]) {
+void add_goat(set<Goat> &trip, string names[], string colors[]) {
     // Randomly select name, color, and age of the goat.
     string name = names[rand() % SZ_NAMES];
     string color = colors[rand() % SZ_COLORS];
@@ -83,10 +83,10 @@ void add_goat(list<Goat> &trip, string names[], string colors[]) {
 
     // Create a new goat and add it to the list.
     Goat new_goat(name, age, color);
-    trip.push_back(new_goat);
+    trip.insert(new_goat);
 }
 
-void display_trip(list<Goat> trip){
+void display_trip(set<Goat> trip){
     int count = 1;
     // Loop through all the goats in the list and display them.
     for (auto i = trip.begin(); i != trip.end(); i++){
@@ -95,7 +95,7 @@ void display_trip(list<Goat> trip){
     }
 }
 
-int select_goat(list<Goat> trip) {
+int select_goat(set<Goat> trip) {
     int choice = 0;
     display_trip(trip);
     cout << "Select Goat -> ";
@@ -108,7 +108,7 @@ int select_goat(list<Goat> trip) {
     return choice;
 }
 
-void delete_goat(list<Goat> &trip) {
+void delete_goat(set<Goat> &trip) {
     int choice = 0;
     cout << "Select a goat to delete..." << endl;
     // User selects a goat to delete.
